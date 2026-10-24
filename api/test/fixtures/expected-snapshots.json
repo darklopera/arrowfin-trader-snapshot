@@ -1,0 +1,220 @@
+{
+ "ACC-1001": {
+  "commissions": 40.6,
+  "fills": 46,
+  "fillsToday": 11,
+  "gross": 29672.0,
+  "ordersToday": 11,
+  "positions": {
+   "MCL": 4
+  },
+  "realizedGross": 22.0,
+  "score": 56.5,
+  "unrealized": 120.0
+ },
+ "ACC-1002": {
+  "commissions": 4.9,
+  "fills": 21,
+  "fillsToday": 3,
+  "gross": 28211.25,
+  "ordersToday": 3,
+  "positions": {
+   "MES": 1
+  },
+  "realizedGross": 15.0,
+  "score": 28.2,
+  "unrealized": 10.0
+ },
+ "ACC-1003": {
+  "commissions": 36.4,
+  "fills": 49,
+  "fillsToday": 5,
+  "gross": 0.0,
+  "ordersToday": 4,
+  "positions": {},
+  "realizedGross": 220.0,
+  "score": 0.0,
+  "unrealized": 0.0
+ },
+ "ACC-1004": {
+  "commissions": 17.5,
+  "fills": 34,
+  "fillsToday": 3,
+  "gross": 28211.25,
+  "ordersToday": 3,
+  "positions": {
+   "MES": 1
+  },
+  "realizedGross": 15.0,
+  "score": 45.4,
+  "unrealized": 6.25
+ },
+ "ACC-1005": {
+  "commissions": 2.1,
+  "fills": 22,
+  "fillsToday": 1,
+  "gross": 22254.0,
+  "ordersToday": 1,
+  "positions": {
+   "MCL": -3
+  },
+  "realizedGross": 0.0,
+  "score": 53.1,
+  "unrealized": -168.0
+ },
+ "ACC-1006": {
+  "commissions": 7.7,
+  "fills": 56,
+  "fillsToday": 5,
+  "gross": 141056.25,
+  "ordersToday": 4,
+  "positions": {
+   "MES": 5
+  },
+  "realizedGross": 146.25,
+  "score": 94.0,
+  "unrealized": 350.0
+ },
+ "ACC-1007": {
+  "commissions": 3.5,
+  "fills": 22,
+  "fillsToday": 3,
+  "gross": 28211.25,
+  "ordersToday": 3,
+  "positions": {
+   "MES": 1
+  },
+  "realizedGross": -7.5,
+  "score": 56.4,
+  "unrealized": 16.25
+ },
+ "ACC-1008": {
+  "commissions": 9.92,
+  "fills": 19,
+  "fillsToday": 2,
+  "gross": 0.0,
+  "ordersToday": 2,
+  "positions": {},
+  "realizedGross": 187.5,
+  "score": 0.0,
+  "unrealized": 0.0
+ },
+ "ACC-1009": {
+  "commissions": 50.4,
+  "fills": 52,
+  "fillsToday": 16,
+  "gross": 0.0,
+  "ordersToday": 16,
+  "positions": {},
+  "realizedGross": 90.0,
+  "score": 0.0,
+  "unrealized": 0.0
+ },
+ "ACC-1010": {
+  "commissions": 1.4,
+  "fills": 1,
+  "fillsToday": 1,
+  "gross": 79382.0,
+  "ordersToday": 1,
+  "positions": {
+   "MNQ": 2
+  },
+  "realizedGross": 0.0,
+  "score": 100.0,
+  "unrealized": 202.0
+ },
+ "ACC-1011": {
+  "commissions": 18.2,
+  "fills": 40,
+  "fillsToday": 4,
+  "gross": 44508.0,
+  "ordersToday": 3,
+  "positions": {
+   "MCL": 6
+  },
+  "realizedGross": 112.5,
+  "score": 44.5,
+  "unrealized": 138.0
+ },
+ "ACC-1012": {
+  "commissions": 0.0,
+  "fills": 12,
+  "fillsToday": 0,
+  "gross": 0.0,
+  "ordersToday": 0,
+  "positions": {},
+  "realizedGross": 0.0,
+  "score": 0.0,
+  "unrealized": 0.0
+ },
+ "ACC-1013": {
+  "commissions": 0.7,
+  "fills": 15,
+  "fillsToday": 1,
+  "gross": 39691.0,
+  "ordersToday": 1,
+  "positions": {
+   "MNQ": 1
+  },
+  "realizedGross": 0.0,
+  "score": 100.0,
+  "unrealized": 31.0
+ },
+ "ACC-1014": {
+  "commissions": 0.0,
+  "fills": 0,
+  "fillsToday": 0,
+  "gross": 0.0,
+  "ordersToday": 0,
+  "positions": {},
+  "realizedGross": 0.0,
+  "score": 0.0,
+  "unrealized": 0.0
+ },
+ "ACC-1015": {
+  "commissions": 196.0,
+  "fills": 188,
+  "fillsToday": 88,
+  "gross": 0.0,
+  "ordersToday": 80,
+  "positions": {},
+  "realizedGross": 144.25,
+  "score": 0.0,
+  "unrealized": 0.0
+ },
+ "ACC-1016": {
+  "commissions": 63.0,
+  "fills": 37,
+  "fillsToday": 9,
+  "gross": 0.0,
+  "ordersToday": 6,
+  "positions": {},
+  "realizedGross": -2075.0,
+  "score": 0.0,
+  "unrealized": 0.0
+ },
+ "ACC-1017": {
+  "commissions": 23.8,
+  "fills": 52,
+  "fillsToday": 10,
+  "gross": 56422.5,
+  "ordersToday": 9,
+  "positions": {
+   "MES": 2
+  },
+  "realizedGross": 46.25,
+  "score": 62.7,
+  "unrealized": 22.5
+ },
+ "ACC-1018": {
+  "commissions": 19.6,
+  "fills": 21,
+  "fillsToday": 6,
+  "gross": 0.0,
+  "ordersToday": 6,
+  "positions": {},
+  "realizedGross": 10.0,
+  "score": 0.0,
+  "unrealized": 0.0
+ }
+}

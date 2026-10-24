@@ -1,0 +1,26 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root { color-scheme: light dark; }
+html.dark { color-scheme: dark; }
+body {
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.num { font-variant-numeric: tabular-nums; font-family: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace; }
+
+@keyframes risk-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgb(244 63 94 / 0.55); }
+  50% { box-shadow: 0 0 0 10px rgb(244 63 94 / 0); }
+}
+.risk-pulse { animation: risk-pulse 1.6s ease-in-out infinite; }
+
+@keyframes row-flash { from { background-color: rgb(250 204 21 / 0.28); } to { background-color: transparent; } }
+.row-flash { animation: row-flash 1.4s ease-out; }
+
+@keyframes live-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+.live-dot { animation: live-dot 1.8s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .risk-pulse, .row-flash, .live-dot { animation: none; }
+}

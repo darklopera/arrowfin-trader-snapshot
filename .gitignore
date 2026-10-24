@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.next/
+.pgdata/
+.stage/
+.env
+.env.local
+*.tsbuildinfo
+coverage/
+# the assessment CSVs are treated as production data; see dataset/README.md
+dataset/traders.original.csv

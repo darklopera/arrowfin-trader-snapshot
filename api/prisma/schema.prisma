@@ -1,0 +1,137 @@
+// ArrowFin - Trader Daily Snapshot
+//
+// Tenant model: `broker_id` is the tenant key. It is DENORMALISED onto every
+// tenant-owned table (accounts, fills) on purpose, for two reasons:
+//   1. Row Level Security policies can then be a trivial, index-friendly
+//      `broker_id = current_setting('app.broker_id')` with no joins.
+//   2. Composite foreign keys (id, broker_id) make it IMPOSSIBLE for a fill to
+//      reference an account that belongs to a different broker: the database
+//      itself rejects the row.
+//
+// Data minimisation: the seed's PII columns (name, email, phone, dob, ssn_last4,
+// address, notes, audit_notes) are NOT modelled here. The snapshot feature does
+// not need them, so they never enter this database. See SECURITY.md.
+
+generator client {
+  provider   = "prisma-client-js"
+  engineType = "client"
+}
+
+datasource db {
+  provider = "postgresql"
+  // Used by the Prisma CLI only (generate / migrate): the privileged connection.
+  // The running API connects as the read-only role via DATABASE_URL (see src/config/env.ts).
+  url      = env("ADMIN_DATABASE_URL")
+}
+
+enum Side {
+  BUY
+  SELL
+}
+
+enum Liquidity {
+  maker
+  taker
+}
+
+model Broker {
+  id             String   @id
+  name           String
+  type           String
+  whiteLabelName String   @map("white_label_name")
+  createdAt      DateTime @map("created_at") @db.Timestamptz(3)
+
+  traders  Trader[]
+  accounts Account[]
+  fills    Fill[]
+
+  @@map("brokers")
+}
+
+model Trader {
+  id        String   @id
+  brokerId  String   @map("broker_id")
+  kycStatus String   @map("kyc_status")
+  createdAt DateTime @map("created_at") @db.Timestamptz(3)
+
+  broker   Broker    @relation(fields: [brokerId], references: [id])
+  accounts Account[]
+
+  @@unique([id, brokerId])
+  @@index([brokerId])
+  @@map("traders")
+}
+
+model Account {
+  id              String   @id
+  brokerId        String   @map("broker_id")
+  traderId        String   @map("trader_id")
+  accountNumber   String   @map("account_number")
+  accountType     String   @map("account_type")
+  balance         Decimal  @db.Decimal(14, 2)
+  maxPositionSize Int      @map("max_position_size")
+  status          String
+  createdAt       DateTime @map("created_at") @db.Timestamptz(3)
+
+  broker Broker @relation(fields: [brokerId], references: [id])
+  // Composite FK: the trader must belong to the SAME broker as the account.
+  trader Trader @relation(fields: [traderId, brokerId], references: [id, brokerId])
+  fills  Fill[]
+
+  @@unique([id, brokerId])
+  @@index([brokerId, traderId])
+  @@map("accounts")
+}
+
+// Reference data, shared by all tenants (not tenant-owned, no RLS).
+model Instrument {
+  symbol         String  @id
+  description    String
+  exchange       String
+  pointValueUsd  Decimal @map("point_value_usd") @db.Decimal(14, 2)
+  tickSize       Decimal @map("tick_size") @db.Decimal(12, 6)
+  tickValueUsd   Decimal @map("tick_value_usd") @db.Decimal(10, 2)
+
+  fills Fill[]
+  mark  MarketPrice?
+
+  @@map("instruments")
+}
+
+model MarketPrice {
+  symbol    String   @id
+  markPrice Decimal  @map("mark_price") @db.Decimal(18, 6)
+  asOf      DateTime @map("as_of") @db.Timestamptz(3)
+
+  instrument Instrument @relation(fields: [symbol], references: [symbol])
+
+  @@map("market_prices")
+}
+
+model Fill {
+  id               String    @id
+  brokerId         String    @map("broker_id")
+  accountId        String    @map("account_id")
+  instrumentSymbol String    @map("instrument_symbol")
+  side             Side
+  quantity         Int
+  price            Decimal   @db.Decimal(18, 6)
+  filledAt         DateTime  @map("filled_at") @db.Timestamptz(3)
+  // Several fills can share one order_id (partial fills). It is NOT unique.
+  orderId          String    @map("order_id")
+  liquidity        Liquidity
+  commissionUsd    Decimal   @map("commission_usd") @db.Decimal(10, 2)
+
+  broker     Broker     @relation(fields: [brokerId], references: [id])
+  account    Account    @relation(fields: [accountId, brokerId], references: [id, brokerId])
+  instrument Instrument @relation(fields: [instrumentSymbol], references: [symbol])
+
+  // THE index of this feature. The hot query is "all fills of ONE account in
+  // time order". Equality on account_id, then filled_at/id already sorted, so
+  // Postgres does an index range scan with no sort step. broker_id is not in
+  // the index: account_id is already selective, and RLS adds broker_id as a
+  // cheap filter on the few rows that match.
+  @@index([accountId, filledAt, id], map: "fills_account_filled_at_id_idx")
+  @@index([brokerId, orderId])
+  @@map("fills")
+}

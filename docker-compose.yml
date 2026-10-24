@@ -1,0 +1,15 @@
+# Postgres for local development. No Docker? `npm run db:embedded` in /api does the same.
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: arrowfin_owner
+      POSTGRES_PASSWORD: owner_dev_password
+      POSTGRES_DB: arrowfin
+    ports: ["54329:5432"]
+    volumes:
+      # creates the read-only, RLS-subject role `arrowfin_app` on first start
+      - ./api/db/init-roles.sql:/docker-entrypoint-initdb.d/01-roles.sql:ro
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:
